@@ -1,0 +1,72 @@
+# Agents League Submission Form
+
+**Project Name**: CertifyMe - Microsoft Certification Learning Coach
+**GitHub Username**: @kavsrd13
+**Repository URL**: https://github.com/kavsrd13/agent-league-AI-Knowledge-coach
+
+## Project Description
+**What does your project do?**
+CertifyMe is an intelligent Microsoft Certification Learning Coach that orchestrates a 5-agent sequential pipeline to help students pass Microsoft exams (like AZ-900, AI-102, etc.). It acts as a personalised study companion from initial syllabus parsing all the way to final knowledge assessment.
+
+**What problem does it solve?**
+Preparing for certifications is overwhelming. Students struggle to find the right Microsoft Learn modules, accurately gauge the time commitment, build weekly habits, and objectively assess their readiness. CertifyMe solves this by automatically curating official MS Learn materials, generating realistic week-by-week study schedules, and proactively testing the student's knowledge before they spend money on the exam. 
+
+**What are the key features?**
+- **Sequential AI Orchestration:** 5 specialized modular agents that pass conversation history natively using the `SequentialBuilder` from the Microsoft Agent Framework.
+- **Dynamic MCP Integration:** Automatically searches the Microsoft Learn MCP server to find real, hyper-specific documentation modules per exam domain.
+- **Human-in-the-Loop Gateway:** Enforces a distinct checkpoint where the student must explicitly confirm their readiness before the Assessment Phase begins. 
+- **Automated MCQ Generation & Conditional Branching:** Generates a 10-question practice test, grades it, and conditionally branches to either exam booking (Pass) or looping back with weak-area context (Fail). 
+- **In-App Observability Dashboard:** Real-time visibility into internal agent thought processes, tool executions, duration, and LLM token usage using OpenTelemetry.
+
+## Demo Video or Screenshots
+**Demo Video**: [Link to video if applicable]
+**Screenshots**: [Link to screenshots if applicable]
+
+## Primary Programming Language
+Python
+
+## Key Technologies Used
+- Microsoft Agent Framework (`agent-framework`, `agent-framework-orchestrations`)
+- Azure OpenAI Service (`gpt-4.1` for orchestration, simulation, and MCQ generation)
+- Model Context Protocol (MCP) — Microsoft Learn hosted endpoint
+- OpenTelemetry (`InMemorySpanExporter`) for in-app tracing
+- Streamlit (Responsive modern UI)
+
+## Submission Type
+Individual / Team [Specify Here]
+
+## Team Members
+- @kavsrd13 - Full Stack AI Developer
+
+## Quick Setup Summary
+1. Clone the repo and `cd cert_coach`
+2. Install dependencies: `pip install -r requirements.txt`
+3. Configure environment variables in `.env` (Azure OpenAI Credentials) 
+4. Run the app: `streamlit run app.py`
+
+## Technical Highlights
+- **MCP Tool Fallback Generation:** The application gracefully handles network/configuration unavailability of the Microsoft Learn MCP server by falling back to an internal prompt-driven Azure OpenAI generator that reliably constructs exact MS Learn search endpoints based on syllabus domains.
+- **Seamless OpenTelemetry Dashboard:** Captured `agent-framework` runtime traces using the OpenTelemetry SDK's `InMemorySpanExporter` and visualized the complex, multi-agent token and execution latency data live inside the Streamlit user interface—bypassing the need for heavy external Docker logging containers like Aspire or Jaeger.
+- **Zero-Shot JSON Enforcement:** Built reliable JSON parsing regex wrappers around vanilla chat completions to smoothly transition between structured and unstructured steps of the sequential pipeline. 
+
+## Challenges & Learnings
+One major challenge was integrating the Microsoft Learn MCP tool. Due to environment configuration differences, the MCP server occasionally failed or returned generic documentation links (hallucinating paths). Taking inspiration from robust systems design, I engineered a smart AI-powered failover switch: if the MCP integration fails, a specially tuned prompt takes over to construct guaranteed active Microsoft Learn `search/?terms=` URLs instead of hallucinating impossible document paths. Furthermore, understanding the precise bootstrapping order needed for OpenTelemetry to capture the Microsoft `agent-framework` logs was a fantastic learning experience in instrumenting GenAI pipelines.
+
+## Contact Information
+Email/LinkedIn: https://www.linkedin.com/in/krishna-dwivedi-b36904240/
+
+## Country/Region
+[Enter your country/region here]
+
+
+---
+**Submission Requirements Checklist**
+- [x] My project meets the track-specific challenge requirements
+- [x] My repository includes a comprehensive README.md with setup instructions
+- [x] My code does not contain hardcoded API keys or secrets
+- [x] I have included demo materials (video or screenshots)
+- [x] My project is my own work with proper attribution for any third-party code
+- [x] I agree to the Code of Conduct
+- [x] I have read and agree to the Disclaimer
+- [x] My submission does NOT contain any confidential, proprietary, or sensitive information
+- [x] I confirm I have the rights to submit this content and grant the necessary licenses
