@@ -156,11 +156,21 @@ Implemented as a Streamlit **phase gate** (`st.session_state["phase"]`). The pip
 ### Conditional Branching (Pass/Fail)
 Post-assessment, `run_recommendation_agent()` scores the answers and sets `verdict = "PASS" | "FAIL"`. The UI routes accordingly — fail path pre-fills weak-area context into the next iteration's goals field, so the loop-back is contextually aware.
 
+## 📊 Observability Dashboard
+
+A dedicated **Observability Dashboard** is embedded directly into the application UI. It uses the `InMemorySpanExporter` from the OpenTelemetry Python SDK to capture live telemetry data from all `agent_framework` components without requiring external Docker containers like Aspire or Jaeger.
+
+- **Traces Included:** Agent invocations (`invoke_agent`), tool executions (`execute_tool`), and LLM chats (`chat`).
+- **Telemetry Displayed:** Execution duration, raw prompts/responses, and exact input/output token counts.
+
+To view the dashboard, simply run the Streamlit app and click the **"📊 Observability Dashboard"** tab at the top.
+
 ---
 
 ## 📖 References
 
 - [Agent Framework — Sequential Orchestration](https://learn.microsoft.com/en-us/agent-framework/workflows/orchestrations/sequential?pivots=programming-language-python)
+- [Agent Framework — Observability](https://learn.microsoft.com/en-us/agent-framework/agents/observability?pivots=programming-language-python)
 - [Microsoft Learn MCP Server](https://learn.microsoft.com/api/mcp)
 - [Microsoft Certification Overview](https://learn.microsoft.com/en-us/certifications/)
 - [Exam Registration (Pearson VUE)](https://examregistration.microsoft.com/)
